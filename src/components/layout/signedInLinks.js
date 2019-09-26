@@ -1,18 +1,24 @@
 import React from "react";
 import { Nav, NavItem } from "react-bootstrap";
+import { NavLink } from "react-router-dom";
 
 const SignedInLinks = () => {
   return (
     <Nav>
       <NavItem>
-        <a className="nav-link">Create Project</a>
+        <NavLink className="nav-link" to="/createNew">
+          Create Project
+        </NavLink>
       </NavItem>
-
       <NavItem>
-        <a className="nav-link">Log Out</a>
+        <NavLink className="nav-link" to="/">
+          Log Out
+        </NavLink>
       </NavItem>
       <NavItem className="rounded-circle">
-        <a className="nav-link ">NN</a>
+        <NavLink className="nav-link " to="/">
+          NN
+        </NavLink>
       </NavItem>
     </Nav>
   );

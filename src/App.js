@@ -4,7 +4,9 @@ import DashBoard from "./components/dashboard/dashBoard";
 import SignIn from "./components/auth/SignIn";
 import SignUp from "./components/auth/SignUp";
 import Footer from "./components/layout/Footer";
+import CreateProject from "./components/project/CreateProject";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import ProjectDetails from "./components/project/ProjectDetails";
 
 const App = () => {
   return (
@@ -16,7 +18,10 @@ const App = () => {
           <Route exact path="/" component={DashBoard} />
           <Route path="/login" component={SignIn} />
           <Route path="/signup" component={SignUp} />
+          <Route path="/createNew" component={CreateProject} />
+          <Route path="/project/:id" component={ProjectDetails} />
         </Switch>
+        <br />
         <Footer />
       </div>
     </Router>

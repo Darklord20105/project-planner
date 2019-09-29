@@ -1,12 +1,6 @@
 import React from "react";
-import {
-  Navbar,
-  Container,
-  Nav,
-  Form,
-  FormControl,
-  Button
-} from "react-bootstrap";
+import { NavLink } from "react-router-dom";
+import { Navbar, Container, Nav } from "react-bootstrap";
 import SignedInLinks from "./signedInLinks";
 import SignedOutLinks from "./signedOutLinks";
 
@@ -21,17 +15,17 @@ const NavigationBar = () => {
       id="mainNav"
     >
       <Container>
-        <Navbar.Brand>Project Planner</Navbar.Brand>
+        <Navbar.Brand>
+          <NavLink to="/" style={{ color: "#f4f4f4", textDecoration: "none" }}>
+            Project Planner
+          </NavLink>
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="ml-auto">
             <SignedInLinks />
             <SignedOutLinks />
           </Nav>
-          <Form inline>
-            <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-            <Button variant="outline-success">Search</Button>
-          </Form>
         </Navbar.Collapse>
       </Container>
     </Navbar>

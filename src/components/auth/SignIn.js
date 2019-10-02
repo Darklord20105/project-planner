@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { Form, Button, Container } from "react-bootstrap";
+import { connect } from "react-redux";
+import { signIn } from "../../redux/actions/authActions";
 
 class SignIn extends Component {
   state = {
@@ -15,12 +17,16 @@ class SignIn extends Component {
     e.preventDefault();
     console.log(this.state);
     // state declaration is embeded in the form component
+    this.props.signIn(this.state);
+    console.log(this.state);
   };
   render() {
+    console.log(this.props);
+    const { authError } = this.props;
     return (
       <Container>
         <Form onSubmit={this.handleSubmit}>
-          <Form.Group controlId="formBasicEmail">
+          <Form.Group controlId="email">
             <Form.Label>Email address</Form.Label>
             <Form.Control
               type="email"
@@ -32,7 +38,7 @@ class SignIn extends Component {
             </Form.Text>
           </Form.Group>
 
-          <Form.Group controlId="formBasicPassword">
+          <Form.Group controlId="password">
             <Form.Label>Password</Form.Label>
             <Form.Control
               type="password"
@@ -45,8 +51,29 @@ class SignIn extends Component {
             Submit
           </Button>
         </Form>
+        {authError ? (
+          <p style={{ textAlign: "center", color: "red", padding: "1rem" }}>
+            {authError}
+          </p>
+        ) : null}
       </Container>
     );
   }
 }
-export default SignIn;
+const mapStateToProps = state => {
+  console.log(state);
+  return {
+    authError: state.auth.authError
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    signIn: cred => dispatch(signIn(cred))
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SignIn);

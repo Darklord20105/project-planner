@@ -3,6 +3,8 @@ import { Container, Row, Col } from "react-bootstrap";
 import ProjectList from "../project/ProjectList";
 import Notification from "./Notification";
 import { connect } from "react-redux";
+import { firestoreConnect } from "react-redux-firebase";
+import { compose } from "redux";
 
 class DashBoard extends Component {
   render() {
@@ -25,8 +27,11 @@ class DashBoard extends Component {
 
 const mapStateToProps = state => {
   return {
-    projects: state.projects
+    projects: state.firestore.ordered.projects
   };
 };
 
-export default connect(mapStateToProps)(DashBoard);
+export default compose(
+  connect(mapStateToProps),
+  firestoreConnect([{ collection: "projects" }])
+)(DashBoard);

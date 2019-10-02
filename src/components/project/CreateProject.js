@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Form, Button, Container } from "react-bootstrap";
 import { connect } from "react-redux";
-import { createProject } from "../../redux/actions/actions";
+import { createProject } from "../../redux/actions/projectActions";
 
 class CreateProject extends Component {
   handleChange = e => {

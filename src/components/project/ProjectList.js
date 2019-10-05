@@ -6,14 +6,21 @@ import { Link } from "react-router-dom";
 const ProjectList = ({ projects }) => {
   return (
     <Container>
-      {projects &&
+      {projects ? (
+        projects &&
         projects.map(project => {
           return (
-            <Link to={"/project/" + project.id} key={project.id}>
-              <ProjectSummary project={project} />
-            </Link>
+            <div key={project.id}>
+              <Link to={"/project/" + project.id}>
+                <ProjectSummary project={project} />
+              </Link>
+              <br />
+            </div>
           );
-        })}
+        })
+      ) : (
+        <p>Loading please Wait....</p>
+      )}
     </Container>
   );
 };

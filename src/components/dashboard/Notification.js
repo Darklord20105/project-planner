@@ -1,19 +1,32 @@
 import React from "react";
 import { Card } from "react-bootstrap";
+import moment from "moment";
 
-class Notification extends React.Component {
-  render() {
-    return (
-      <Card style={{ width: "18rem" }}>
-        <Card.Body>
-          <Card.Title>Notification</Card.Title>
-          <Card.Text>
-            Some quick example text to build on the card title and make up the
-            bulk of the card's content.
-          </Card.Text>
-        </Card.Body>
-      </Card>
-    );
-  }
-}
+const Notification = props => {
+  const { notifications } = props;
+  return (
+    <Card>
+      <Card.Body>
+        <Card.Title>Notification</Card.Title>
+        <ul className="list-group list-group-flush">
+          {notifications &&
+            notifications.map(item => {
+              return (
+                <li className="list-group-item" key={item.id}>
+                  <Card.Text>
+                    <span class="text-success pr-2">{item.user}</span>
+                    <span>{item.content}</span>
+                    <br />
+                    <small className="text-muted">
+                      {moment(item.time.toDate()).fromNow()}
+                    </small>
+                  </Card.Text>
+                </li>
+              );
+            })}
+        </ul>
+      </Card.Body>
+    </Card>
+  );
+};
 export default Notification;

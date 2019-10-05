@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import { Form, Button, Container } from "react-bootstrap";
+import { Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+import { signUp } from "../../redux/actions/authActions";
 
 class SignUp extends Component {
   handleChange = e => {
@@ -9,15 +12,19 @@ class SignUp extends Component {
   };
   handleSubmit = e => {
     e.preventDefault();
-    console.log(this.state);
     // state declaration is embeded in the form component
+    this.props.signUp(this.state);
   };
 
   render() {
+    const { auth, authError } = this.props;
+    if (auth.uid) {
+      return <Redirect to="/" />;
+    }
     return (
       <Container>
         <Form onSubmit={this.handleSubmit}>
-          <Form.Group controlId="formGridEmail">
+          <Form.Group controlId="email">
             <Form.Label>Email</Form.Label>
             <Form.Control
               type="email"
@@ -26,7 +33,7 @@ class SignUp extends Component {
             />
           </Form.Group>
 
-          <Form.Group controlId="formGridPassword">
+          <Form.Group controlId="password">
             <Form.Label>Password</Form.Label>
             <Form.Control
               type="password"
@@ -35,7 +42,7 @@ class SignUp extends Component {
             />
           </Form.Group>
 
-          <Form.Group controlId="formGridFirstName">
+          <Form.Group controlId="firstName">
             <Form.Label>First Name</Form.Label>
             <Form.Control
               type="firstName"
@@ -44,7 +51,7 @@ class SignUp extends Component {
             />
           </Form.Group>
 
-          <Form.Group controlId="formGridLastName">
+          <Form.Group controlId="lastName">
             <Form.Label>Last Name</Form.Label>
             <Form.Control
               type="lastName"
@@ -56,10 +63,26 @@ class SignUp extends Component {
           <Button variant="primary" type="submit">
             Submit
           </Button>
+          {authError ? <p>{authError}</p> : null}
         </Form>
       </Container>
     );
   }
 }
+const mapStateToProps = state => {
+  return {
+    auth: state.firebase.auth,
+    authError: state.auth.authError
+  };
+};
 
-export default SignUp;
+const mapDispatchToProps = dispatch => {
+  return {
+    signUp: newUser => dispatch(signUp(newUser))
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SignUp);

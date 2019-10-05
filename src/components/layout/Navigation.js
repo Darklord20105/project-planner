@@ -3,8 +3,16 @@ import { NavLink } from "react-router-dom";
 import { Navbar, Container, Nav } from "react-bootstrap";
 import SignedInLinks from "./signedInLinks";
 import SignedOutLinks from "./signedOutLinks";
+import { connect } from "react-redux";
 
-const NavigationBar = () => {
+const NavigationBar = props => {
+  console.log(props);
+  const { auth, profile } = props;
+  const links = auth.uid ? (
+    <SignedInLinks profile={profile} />
+  ) : (
+    <SignedOutLinks />
+  );
   return (
     <Navbar
       collapseOnSelect
@@ -22,14 +30,19 @@ const NavigationBar = () => {
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="ml-auto">
-            <SignedInLinks />
-            <SignedOutLinks />
-          </Nav>
+          <Nav className="ml-auto">{links}</Nav>
         </Navbar.Collapse>
       </Container>
     </Navbar>
   );
 };
 
-export default NavigationBar;
+const mapStateToProps = state => {
+  console.log(state);
+  return {
+    auth: state.firebase.auth,
+    profile: state.firebase.profile
+  };
+};
+
+export default connect(mapStateToProps)(NavigationBar);

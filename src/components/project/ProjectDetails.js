@@ -3,11 +3,17 @@ import { Card, Container } from "react-bootstrap";
 import { connect } from "react-redux";
 import { firestoreConnect } from "react-redux-firebase";
 import { compose } from "redux";
+import { Redirect } from "react-router-dom";
+import moment from "moment";
 
 const ProjectDetails = props => {
   console.log(props);
-  if (props.project) {
-    const { project } = props;
+  const { project, auth } = props;
+  if (!auth.uid) {
+    return <Redirect to="/login" />;
+  }
+
+  if (project) {
     return (
       <div>
         <Container>
@@ -17,7 +23,10 @@ const ProjectDetails = props => {
               <Card.Text>{project.content}</Card.Text>
             </Card.Body>
             <Card.Footer>
-              <small className="text-muted">Last updated 3 mins ago</small>
+              <small className="text-muted">
+                Last updated
+                {moment(project.timestamp.toDate()).calendar()}
+              </small>
             </Card.Footer>
           </Card>
         </Container>
@@ -38,7 +47,8 @@ const mapStateToProps = (state, ownProps) => {
   const projects = state.firestore.data.projects;
   const project = projects ? projects[id] : null;
   return {
-    project: project
+    project: project,
+    auth: state.firebase.auth
   };
 };
 

@@ -2,8 +2,13 @@ import React, { Component } from "react";
 import { Form, Button, Container } from "react-bootstrap";
 import { connect } from "react-redux";
 import { createProject } from "../../redux/actions/projectActions";
+import { Redirect } from "react-router-dom";
 
 class CreateProject extends Component {
+  state = {
+    title: "",
+    content: ""
+  };
   handleChange = e => {
     this.setState({
       [e.target.id]: e.target.value
@@ -13,12 +18,17 @@ class CreateProject extends Component {
     e.preventDefault();
     this.props.createProject(this.state);
     // state declaration is embeded in the form component
+    this.props.history.push("/");
   };
   render() {
+    const { auth } = this.props;
+    if (!auth.uid) {
+      return <Redirect to="login" />;
+    }
     return (
       <Container>
         <Form onSubmit={this.handleSubmit}>
-          <Form.Group controlId="formBasicProjectTitle">
+          <Form.Group controlId="title">
             <Form.Label>Project title</Form.Label>
             <Form.Control
               type="text"
@@ -30,7 +40,7 @@ class CreateProject extends Component {
             </Form.Text>
           </Form.Group>
 
-          <Form.Group controlId="formBasicProjectContent">
+          <Form.Group controlId="content">
             <Form.Label>Content</Form.Label>
             <Form.Control
               as="textarea"
@@ -49,6 +59,12 @@ class CreateProject extends Component {
   }
 }
 
+const mapStateToProps = state => {
+  return {
+    auth: state.firebase.auth
+  };
+};
+
 const mapDispatchToProps = dispatch => {
   return {
     createProject: project => {
@@ -58,6 +74,6 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(CreateProject);

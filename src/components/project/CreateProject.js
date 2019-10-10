@@ -51,7 +51,7 @@ class CreateProject extends Component {
           </Form.Group>
 
           <Button variant="primary" type="submit">
-            Submit
+            Create
           </Button>
         </Form>
       </Container>

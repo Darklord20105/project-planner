@@ -12,7 +12,6 @@ import firebase from "./config/fbConfig";
 import { createFirestoreInstance } from "redux-firestore";
 
 const rrfConfig = {
-  attachAuthIsReady: true,
   useFirestoreForProfile: true,
   userProfile: "users"
 };

@@ -1,10 +1,10 @@
 import React from "react";
 import NavigationBar from "./components/layout/Navigation";
 import DashBoard from "./components/dashboard/dashBoard";
-import SignIn from "./components/auth/SignIn";
-import SignUp from "./components/auth/SignUp";
+import SignIn from "./components/auth/SignInFormik";
+import SignUp from "./components/auth/SignUpFormik";
 import Footer from "./components/layout/Footer";
-import CreateProject from "./components/project/CreateProject";
+import CreateProject from "./components/project/CreateProjectFormik";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import ProjectDetails from "./components/project/ProjectDetails";
 

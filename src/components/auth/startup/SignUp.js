@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Form, Button, Container } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import { signUp } from "../../redux/actions/authActions";
+import { signUp } from "../../../redux/actions/authActions";
 
 class SignUp extends Component {
   handleChange = e => {
@@ -61,7 +61,7 @@ class SignUp extends Component {
           </Form.Group>
 
           <Button variant="primary" type="submit">
-            Submit
+            Sign Up
           </Button>
           {authError ? <p>{authError}</p> : null}
         </Form>

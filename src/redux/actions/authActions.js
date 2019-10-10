@@ -15,7 +15,7 @@ export const signIn = creds => {
 };
 
 export const signOut = () => {
-  return dispatch => {
+  return (dispatch, getState) => {
     firebase
       .auth()
       .signOut()

@@ -4,6 +4,7 @@ import moment from "moment";
 
 const Notification = props => {
   const { notifications } = props;
+  console.log(notifications);
   return (
     <Card>
       <Card.Body>

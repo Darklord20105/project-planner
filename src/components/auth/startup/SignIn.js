@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Form, Button, Container } from "react-bootstrap";
 import { connect } from "react-redux";
-import { signIn } from "../../redux/actions/authActions";
+import { signIn } from "../../../redux/actions/authActions";
 import { Redirect } from "react-router-dom";
 
 class SignIn extends Component {
@@ -51,7 +51,7 @@ class SignIn extends Component {
           </Form.Group>
 
           <Button variant="primary" type="submit">
-            Submit
+            Sign In
           </Button>
         </Form>
         {authError ? (
